@@ -1,0 +1,66 @@
+#include <xc.h>
+#include <stdint.h>
+
+#pragma config FOSC = XT        // Oscillator Selection bits (XT oscillator)
+#pragma config WDTE = OFF       // Watchdog Timer Enable bit (WDT disabled)
+#pragma config PWRTE = ON       // Power-up Timer Enable bit (PWRT enabled)
+#pragma config BOREN = ON       // Brown-out Reset Enable bit (BOR enabled)
+#pragma config LVP = OFF        // Low-Voltage (Single-Supply) In-Circuit Serial Programming Enable bit (RB3 is digital I/O, HV on MCLR must be used for programming)
+#pragma config CPD = OFF        // Data EEPROM Memory Code Protection bit (Data EEPROM code protection off)
+#pragma config WRT = OFF        // Flash Program Memory Write Enable bits (Write protection off; all program memory may be written to by EECON control)
+#pragma config CP = OFF         // Flash Program M
+const uint8_t a[10] = {0xC0, 0xF9, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xF8, 0x80, 0x90};
+#define _XTAL_FREQ 4000000
+
+int count = 0;
+
+void main(void) {
+    TRISC = 0x01;
+    TRISB = 0x00;
+
+
+    while (1) {
+        if (RC0 == 0) {
+            count++;
+
+        }
+        if (count % 10 == 1) {
+            PORTB = 0xC0;
+        }
+
+        if (count % 10 == 2) {
+            PORTB = 0xF9;
+        }
+
+        if (count % 10 == 3) {
+            PORTB = 0xA4;
+        }
+        ;
+        if (count % 10 == 4) {
+            PORTB = 0xB0;
+        }
+        if (count % 10 == 5) {
+            PORTB = 0x99;
+        }
+        if (count % 10 == 6) {
+            PORTB = 0x92;
+        }
+        if (count % 10 == 7) {
+            PORTB = 0x82;
+        }
+        if (count % 10 == 8) {
+            PORTB = 0xF8;
+        }
+        if (count % 10 == 9) {
+            PORTB = 0x80;
+        }
+        if (count % 10 == 0 && count != 0) {
+            PORTB = 0x90;
+        }
+        __delay_ms(50);
+
+    }
+
+
+
+}
